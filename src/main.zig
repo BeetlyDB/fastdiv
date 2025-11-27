@@ -1,6 +1,10 @@
 const std = @import("std");
 const fastdiv = @import("fastdiv");
 //NOTE: use fastdiv only for runtime divisions
+//
+test {
+    std.testing.refAllDecls(@This());
+}
 
 pub fn main() !void {
     try benchu32();
@@ -10,7 +14,7 @@ pub fn main() !void {
 fn benchu32() !void {
     const trials = 1_000_000_000;
     const divisor: u32 = @intCast(std.crypto.random.int(u32));
-    const pre = fastdiv.PrecomputedDivU32.init(divisor);
+    const pre = fastdiv.FastDiv(u32).init(divisor);
 
     var a: u32 = 123456789;
 
@@ -53,7 +57,7 @@ fn benchu64() !void {
     const trials = 500_000_000;
     const divisor: u32 = @intCast(std.crypto.random.int(u32));
 
-    const pre = fastdiv.PrecomputedDivU64.init(divisor);
+    const pre = fastdiv.FastDiv(u64).init(divisor);
 
     var a: u64 = 9876543210123;
 
